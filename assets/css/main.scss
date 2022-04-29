@@ -1,0 +1,15 @@
+@import './fonts.scss';
+
+* {
+    font-family: 'Cera Pro';
+}
+
+// Container
+
+.container {
+    display: block;
+    max-width: 1160px;
+    padding: 0px 10px;
+    margin: 0 auto;
+}
+
