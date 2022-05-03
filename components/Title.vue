@@ -11,5 +11,8 @@
         font-size: 30px;
         line-height: 112.2%;
         color: #FFFFFF;
+        @media (max-width: 1024px) {
+            text-align: center;
+        }
     }
 </style>

@@ -1,7 +1,36 @@
+<script>
+export default {
+    methods: {
+        openMobileMenu() {
+            const mobileMenu = document.querySelector('.nav__burger-menu');
+            const mobileBurger = document.querySelector('.nav__burger');
+
+            mobileMenu.classList.toggle('nav__burger-menu_active');
+            mobileBurger.classList.toggle('nav__burger_active');
+        }
+    }
+}
+</script>
+
 <template>
     <nav class="nav">
         <div class="container">
             <div class="nav__container">
+                <div @click="openMobileMenu()" class="nav__burger">
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                </div>
+
+                <div class="nav__burger-menu">
+                    <NuxtLink to="/webogram" class="nav__link">Webogram</NuxtLink>
+                    <NuxtLink to="/blog" class="nav__link">Блог</NuxtLink>
+                    <NuxtLink to="/stickers" class="nav__link">Стикеры</NuxtLink>
+                    <NuxtLink to="/chanels" class="nav__link">Каналы</NuxtLink>
+                    <NuxtLink to="/faq" class="nav__link">FAQ</NuxtLink>
+                    <NuxtLink to="/catalog" class="nav__link">Каталог</NuxtLink>
+                </div>
+
                 <NuxtLink to="/webogram" class="nav__link">Webogram</NuxtLink>
                 <NuxtLink to="/blog" class="nav__link">Блог</NuxtLink>
                 <NuxtLink to="/stickers" class="nav__link">Стикеры</NuxtLink>
@@ -20,6 +49,8 @@
     </nav>
 </template>
 
+
+
 <style lang="scss">
     .nav {
         position: fixed;
@@ -32,10 +63,18 @@
         padding-bottom: 15px;
         border-bottom-left-radius: 100px;
         border-bottom-right-radius: 100px;
+        @media (max-width: 768px) {
+            border-bottom-left-radius: 0px;
+            border-bottom-right-radius: 0px;
+        }
         &__container {
             display: flex;
             justify-content: space-between;
             align-items: center;
+            @media (max-width: 768px) {
+                justify-content: flex-start;
+                padding-left: 30px;
+            }
         }
         &__link {
             font-style: normal;
@@ -44,6 +83,74 @@
             line-height: 20px;
             color: #FFFFFF;
             text-decoration: none;
+            @media (max-width: 768px) {
+                display: none
+            }
+        }
+        &__brand {
+            @media (max-width: 768px) {
+                margin-left: 20px;
+            }
+        }
+        &__burger {
+            display: none;
+            @media (max-width: 768px) {
+                display: flex;
+                flex-direction: column;
+                div {
+                    margin-top: 5px;
+                    margin-bottom: 5px;
+                    width: 30px;
+                    height: 1px;
+                    background-color: #FFFFFF;
+                    border-radius: 5px;
+                }
+            }
+            &_active {
+                position: relative;
+                z-index: 7;
+                bottom: -5px;
+                div {
+                    &:first-of-type {
+                        transform: rotate(-45deg);
+                        background-color: #000;
+                    }
+                    &:nth-of-type(2) {
+                        transform: rotate(45deg);
+                        position: relative;
+                        top: -11px;
+                        background-color: #000;
+                    }
+                    &:last-of-type {
+                        display: none;
+                    }
+                }
+            }
+            &-menu {
+                display: none;
+                @media (max-width: 768px) {
+                    &_active {
+                        display: flex;
+                        flex-direction: column;
+                        align-items: center;
+                        justify-content: center;
+                        position: fixed;
+                        z-index: 6;
+                        top: 0;
+                        left: 0;
+                        width: 100vw;
+                        height: 100vh;
+                        background-color: #ffffff9f;
+                        & .nav__link {
+                            display: block;
+                            color: #000;
+                            font-size: 28px;
+                            margin-bottom: 10px;
+                            margin-top: 10px;
+                        }
+                    }
+                }
+            }
         }
     }
 </style>

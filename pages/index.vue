@@ -41,22 +41,46 @@ export default {
     background-repeat: no-repeat;
     background-size: cover;
     padding-top: 120px;
+    overflow: hidden;
     border-bottom-right-radius: 70px;
     border-bottom-left-radius: 70px;
+    @media (max-width: 1024px) {
+      padding-bottom: 150px;
+    }
     &__container {
       display: flex;
       justify-content: space-between;
       flex-wrap: wrap;
+      @media (max-width: 1024px) {
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+      }
+    }
+    img {
+      @media (max-width: 1024px) {
+        position: absolute;
+        opacity: 0.1;
+        z-index: 1;
+        bottom: 0;
+      }
     }
     &__text {
       max-width: 527px;
-      padding-top: 55px
+      padding-top: 55px;
+      @media (max-width: 1024px) {
+        position: relative;
+        z-index: 2;
+      }
     }
     & .title {
       margin-bottom: 43px;
     }
     & .text {
       margin-bottom: 75px;
+      @media (max-width: 1024px) {
+        text-align: center;
+      }
     }
     &__btn {
       font-style: normal;

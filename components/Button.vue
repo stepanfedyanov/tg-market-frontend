@@ -21,5 +21,8 @@
 
         padding: 19px 37px;
         text-decoration: none;
+        @media (max-width: 425px) {
+            padding: 19px 15px;
+        }
     }
 </style>
