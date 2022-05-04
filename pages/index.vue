@@ -57,6 +57,66 @@
         </ChanelContainer>
       </div>
     </section>
+
+    <section class="category">
+      <div class="container">
+        <Title titleBlack='true' num="02">Выбрать категорию</Title>
+
+        <ChanelContainer>
+          <CategoryBtn>Новости и СМИ</CategoryBtn>
+          <CategoryBtn>Блоги</CategoryBtn>
+          <CategoryBtn>Новости и СМИ</CategoryBtn>
+          <CategoryBtn>Блоги</CategoryBtn>
+          <CategoryBtn>Новости и СМИ</CategoryBtn>
+        </ChanelContainer>
+
+        <ChanelContainer>
+          <ChanelCard 
+          name="ТОПОР (Горячие новости)" 
+          people="545 943"
+          tag="@topor.telegr"
+          subText="Официальный канал украинского
+интернет-СМИ mash (мэш). Новости
+Украины и не только..."
+          link="https://yandex.ru"></ChanelCard>
+          <ChanelCard 
+          name="ТОПОР (Горячие новости)" 
+          people="545 943"
+          tag="@topor.telegr"
+          subText="Официальный канал украинского
+интернет-СМИ mash (мэш). Новости
+Украины и не только..."
+          link="https://yandex.ru"></ChanelCard>
+          <ChanelCard 
+          name="ТОПОР (Горячие новости)" 
+          people="545 943"
+          tag="@topor.telegr"
+          subText="Официальный канал украинского
+интернет-СМИ mash (мэш). Новости
+Украины и не только..."
+          link="https://yandex.ru"></ChanelCard>
+          <ChanelCard 
+          name="ТОПОР (Горячие новости)" 
+          people="545 943"
+          tag="@topor.telegr"
+          subText="Официальный канал украинского
+интернет-СМИ mash (мэш). Новости
+Украины и не только..."
+          link="https://yandex.ru"></ChanelCard>
+          <ChanelCard 
+          name="ТОПОР (Горячие новости)" 
+          people="545 943"
+          tag="@topor.telegr"
+          subText="Официальный канал украинского
+интернет-СМИ mash (мэш). Новости
+Украины и не только..."
+          link="https://yandex.ru"></ChanelCard>
+        </ChanelContainer>
+
+        <Button>Больше каналов</Button>
+
+      </div>
+    </section>
   </div>
 </template>
 
@@ -138,5 +198,19 @@ export default {
 
   .popular {
     padding-top: 60px;
+    
+  }
+
+  .category {
+    padding-top: 60px;
+    & > .container > .button {
+      height: 15px;
+      width: fit-content;
+      display: block;
+      margin: 0 auto;
+      margin-top: 30px;
+      background: linear-gradient(241.57deg, #37AEE2 2.93%, #1E96C8 103.57%);
+      color: #fff;
+    }
   }
 </style>

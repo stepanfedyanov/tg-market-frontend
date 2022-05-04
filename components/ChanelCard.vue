@@ -34,6 +34,7 @@ export default {
         position: relative;
         width: 300px;
         height: 250px;
+        margin-bottom: 20px;
         padding: 22px 28px;
         padding-right: 45px;
         background: #FFFFFF;
