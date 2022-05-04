@@ -24,6 +24,39 @@
         </div>
       </div>
     </section>
+
+    <section class="popular">
+      <div class="container">
+        <Title titleBlack='true' num="01">Сейчас популярно</Title>
+
+        <ChanelContainer>
+          <ChanelCard 
+          name="ТОПОР (Горячие новости)" 
+          people="545 943"
+          tag="@topor.telegr"
+          subText="Официальный канал украинского
+интернет-СМИ mash (мэш). Новости
+Украины и не только..."
+          link="https://yandex.ru"></ChanelCard>
+          <ChanelCard 
+          name="ТОПОР (Горячие новости)" 
+          people="545 943"
+          tag="@topor.telegr"
+          subText="Официальный канал украинского
+интернет-СМИ mash (мэш). Новости
+Украины и не только..."
+          link="https://yandex.ru"></ChanelCard>
+          <ChanelCard 
+          name="ТОПОР (Горячие новости)" 
+          people="545 943"
+          tag="@topor.telegr"
+          subText="Официальный канал украинского
+интернет-СМИ mash (мэш). Новости
+Украины и не только..."
+          link="https://yandex.ru"></ChanelCard>
+        </ChanelContainer>
+      </div>
+    </section>
   </div>
 </template>
 
@@ -101,5 +134,9 @@ export default {
       left: 50%;
       transform: translateX(-50%);
     }
+  }
+
+  .popular {
+    padding-top: 60px;
   }
 </style>
