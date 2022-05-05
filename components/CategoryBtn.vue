@@ -17,6 +17,8 @@
         margin-bottom: 10px;
         display: flex;
         align-items: center;
+        margin-left: 5px;
+        margin-right: 5px;
         
         background: #F7F7F7;
         border: none;

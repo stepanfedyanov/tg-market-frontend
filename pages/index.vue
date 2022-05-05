@@ -117,6 +117,36 @@
 
       </div>
     </section>
+
+    <section class="about-us">
+      <img class="about-us__clouds" src="~/assets/img/clouds-about-us.svg" alt="Облака">
+      <div class="container">
+        <Title titleBlack="true" num="03">Что такое telegrator.ru?</Title>
+
+        <div class="about-us__container">
+          <img src="~/assets/img/about-us-img.png" alt="Что такое telegrator.ru?">
+          <div class="about-us__text-container">
+            <P>
+              <span>Биржа рекламы телеграм</span> <br><br>
+              Это бесплатный сервис для продвижения ваших
+              Telegram каналов в интернете. С помощью нашей
+              биржи вы всегда можете найти выгодные предложения
+              по размещению рекламы или взаимному пиару<br><br>
+
+              С помощью нашей биржи вы всегда можете найти
+              выгодные предложения по размещению рекламы
+              или взаимному пиару
+            </P>
+
+            <MiniButton class="chanel-card__link">Перейти 
+                <svg width="15" height="13" viewBox="0 0 15 13" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M0.919612 5.66154L9.85461 1.80292C10.7366 1.40098 13.7277 0.114768 13.7277 0.114768C13.7277 0.114768 15.1082 -0.447948 14.9932 0.918648C14.9548 1.48136 14.6481 3.45087 14.3413 5.58115L13.3826 11.8916C13.3826 11.8916 13.3059 12.8161 12.654 12.9768C12.0021 13.1376 10.9283 12.4141 10.7366 12.2534C10.5832 12.1328 7.86053 10.324 6.86349 9.43977C6.59506 9.19861 6.28828 8.71628 6.90184 8.15357C8.28236 6.82716 9.9313 5.17921 10.9283 4.13417C11.3885 3.65184 11.8487 2.52641 9.9313 3.893L4.52429 7.71143C4.52429 7.71143 3.91073 8.11337 2.7603 7.75163C1.60987 7.38988 0.267702 6.90755 0.267702 6.90755C0.267702 6.90755 -0.652641 6.30464 0.919612 5.66154Z" fill="#2BA0D2"/>
+                </svg>
+            </MiniButton>
+          </div>
+        </div>
+      </div>
+    </section>
   </div>
 </template>
 
@@ -211,6 +241,47 @@ export default {
       margin-top: 30px;
       background: linear-gradient(241.57deg, #37AEE2 2.93%, #1E96C8 103.57%);
       color: #fff;
+    }
+  }
+
+  .about-us {
+    padding-top: 60px;
+    position: relative;
+    .title {
+      margin-bottom: 45px;
+      position: relative;
+      z-index: 2;
+    }
+    &__container {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      position: relative;
+      z-index: 2;
+      @media (max-width: 1024px) {
+        justify-content: center;
+        flex-direction: column;
+        img {
+          width: 300px;
+        }
+      }
+    }
+    .text {
+      color: #141414!important;
+    }
+    &__text-container {
+      margin-left: 62px;
+      @media (max-width: 1024px) {
+        margin-left: 0;
+      }
+    }
+    &__clouds {
+      position: absolute;
+      top: 0%;
+      z-index: 1;
+      @media (max-width: 1024px) {
+        width: 100%
+      }
     }
   }
 </style>

@@ -9,6 +9,8 @@
         display: flex;
         margin-top: 40px;
         flex-wrap: wrap;
-        justify-content: space-between;
+        @media (max-width: 768px) {
+            justify-content: center;
+        }
     }
 </style>

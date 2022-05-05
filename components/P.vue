@@ -12,5 +12,8 @@
         font-size: 16px;
         line-height: 141.7%;
         color: #FFFFFF;
+        span {
+            font-weight: 600;
+        }
     }
 </style>
