@@ -17,6 +17,7 @@
     "webpack": "^4.46.0"
   },
   "devDependencies": {
+    "ap-style-title-case": "^1.1.2",
     "sass": "^1.51.0",
     "sass-loader": "10"
   }
