@@ -16,8 +16,14 @@ export default {
     ]
   },
 
+  env: {
+    strapiBaseUri: process.env.API_URL || "http://localhost:1337"
+  },
+
   // Global CSS: https://go.nuxtjs.dev/config-css
   css: [
+    '~/assets/css/normalize.css',
+    '~/assets/css/main.scss'
   ],
 
   // Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
@@ -33,7 +39,10 @@ export default {
 
   // Modules: https://go.nuxtjs.dev/config-modules
   modules: [
+    
   ],
+
+  
 
   // Build Configuration: https://go.nuxtjs.dev/config-build
   build: {
