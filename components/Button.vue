@@ -1,5 +1,11 @@
+<script>
+export default {
+    props: ['link']
+}
+</script>
+
 <template>
-    <a href="" class="button">
+    <a :href="link" class="button">
         <slot></slot>
     </a>
 </template>

@@ -3,7 +3,7 @@
         <NavBar />
 
         <div class="breadcrumbs">
-            <Crumbs />
+            <Crumbs :title="params.name" />
         </div>
 
         <section class="info">
@@ -24,21 +24,14 @@
                             <MiniInfo icon="people">1 545 943</MiniInfo>
                             <MiniInfo icon="people">Новости и СМИ</MiniInfo>
                         </div>
-                        <h1 class="h1">ТОПОР (Горячие новости)</h1>
+                        <h1 class="h1">{{ params.name }}</h1>
 
-                        <MiniInfo background="red" icon="tg">topor.telegr</MiniInfo>
+                        <MiniInfo background="red" icon="tg">{{ params.tag }}</MiniInfo>
 
-                        <div class="info__text">
-                            Официальный канал украинского интернет-СМИ mash
-                            (мэш). Новости Украины и не только. Канал украинского
-                            интернет-СМИ mash (мэш)
-                            <br><br>
-                            Новости Украины и не только.
-                            Для связи: <a href="#">@markgang</a>
-                        </div>
+                        <div class="info__text">{{params.about}}</div>
 
                         <div class="info__btn-wrap">
-                            <MiniButton background="true" icon="tg">Перейти</MiniButton>
+                            <MiniButton background="true" icon="tg" :link="'https://t.me/' + params.tag">Перейти</MiniButton>
                             <MiniButton background="true" icon="stat" link="#stat">Статистика</MiniButton>
                         </div>
 
@@ -57,7 +50,9 @@
                     </div>
                     <div class="tabs__window">2</div>
                     <div class="tabs__window">3</div>
-                    <div class="tabs__window tabs__window_active">4</div>
+                    <div class="tabs__window tabs__window_active">
+                        <Graph />
+                    </div>
                 </Tabs>
             </div>
         </section>
@@ -66,31 +61,18 @@
       <div class="container">
         <Title titleBlack='true' num="02">Похожие каналы</Title>
 
-        <ChanelContainer>
-          <ChanelCard 
-          name="ТОПОР (Горячие новости)" 
+        <div v-if="error">
+          {{ error }}
+        </div>
+
+       
+        <ChanelContainer v-else>
+          <ChanelCard v-for="telegram in telegrams" :key="telegram.id"
+          :name="telegram.attributes.name" 
           people="545 943"
-          tag="@topor.telegr"
-          subText="Официальный канал украинского
-интернет-СМИ mash (мэш). Новости
-Украины и не только..."
-          link="https://yandex.ru"></ChanelCard>
-          <ChanelCard 
-          name="ТОПОР (Горячие новости)" 
-          people="545 943"
-          tag="@topor.telegr"
-          subText="Официальный канал украинского
-интернет-СМИ mash (мэш). Новости
-Украины и не только..."
-          link="https://yandex.ru"></ChanelCard>
-          <ChanelCard 
-          name="ТОПОР (Горячие новости)" 
-          people="545 943"
-          tag="@topor.telegr"
-          subText="Официальный канал украинского
-интернет-СМИ mash (мэш). Новости
-Украины и не только..."
-          link="https://yandex.ru"></ChanelCard>
+          :tag="telegram.attributes.tag"
+          :subText="telegram.attributes.shortText"
+          :link="'http://localhost:3000/channel/' + telegram.id"></ChanelCard>
         </ChanelContainer>
       </div>
     </section>
@@ -115,6 +97,9 @@
 <style lang="scss">
     .chanel {
         padding-top: 100px;
+    }
+    .graph {
+        padding-top: 60px;
     }
     .breadcrumbs {
         display: flex;
@@ -167,3 +152,58 @@
         }
     }
 </style>
+
+
+<script>
+  export default {
+    data () {
+      return {
+        SERVER_URL: 'http://localhost:1337',
+        telegrams: [],
+        params: [],
+        error: null,
+        headers: {'Content-Type': 'application/json', 'Authorization': 'Bearer d849f2fda81bd95443d7eea1c2965b8a1a915831c9f4a294569ad33b0b7975cf65abc9210e185bd9b4fb3b328e62e6266a2eed7aa959d790954eec14875722194ac981c125096470c5c43b4d90ca0f0f4d0f7ed59e787c00a51fff3dd09421119c3d4cc1f4a91943782162f787cee6ab804bf0eb0cf4ccd26c0e28826904aeb0'},
+        channelByCategoryId: []
+      }
+    },
+    async asyncData({ params }) {
+      const id = params.slug // When calling /abc the slug will be "abc"
+      
+      return { id }
+    },
+    methods: {
+      parseJSON: function (resp) {
+        return (resp.json ? resp.json() : resp);
+      },
+      checkStatus: function (resp) {
+        if (resp.status >= 200 && resp.status < 300) {
+          return resp;
+        }
+        return this.parseJSON(resp).then((resp) => {
+          throw resp;
+        });
+      },
+    },
+    async mounted () {
+      try {
+        const responseChannels = await fetch(`${this.SERVER_URL}/api/telegrams`, {
+          method: 'GET',
+          headers: this.headers,
+        }).then(this.checkStatus)
+          .then(this.parseJSON),
+        channelData = await fetch(`${this.SERVER_URL}/api/telegrams/${this.id}?populate=*`, {
+            method: 'GET',
+            headers: this.headers,
+        }).then(this.checkStatus)
+          .then(this.parseJSON);
+
+        this.telegrams = responseChannels.data;
+        this.params = channelData.data.attributes;
+
+        console.log(this.params);
+      } catch (error) {
+        this.error = error
+      }
+    }
+  }
+</script>

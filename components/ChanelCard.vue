@@ -73,6 +73,10 @@ export default {
         }
         &__tag {
             color: #8294A5;
+            margin-left: 20px;
+            &::before {
+                content: '@';
+            }
         }
         &__text {
             color: #141414!important;
