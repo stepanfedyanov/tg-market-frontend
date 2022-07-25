@@ -50,7 +50,7 @@
           people="545 943"
           :tag="telegram.attributes.tag"
           :subText="telegram.attributes.shortText"
-          :link="'http://localhost:3000/channel/' + telegram.id"></ChanelCard>
+          :link="`${process.env.DOMAIN}/channel/` + telegram.id"></ChanelCard>
         </ChanelContainer>
       </div>
     </section>
@@ -75,7 +75,7 @@
           people="545 943"
           :tag="telegramCategory.attributes.tag"
           :subText="telegramCategory.attributes.shortText"
-          :link="'http://localhost:3000/channel/' + telegramCategory.attributes.link"></ChanelCard>
+          :link="`${process.env.DOMAIN}/channel/` + telegramCategory.attributes.link"></ChanelCard>
         </ChanelContainer>
 
         <Button link="/channels">Больше каналов</Button>
@@ -136,12 +136,12 @@
     name: 'IndexPage',
     data () {
       return {
-        SERVER_URL: 'http://localhost:1337',
+        SERVER_URL: process.env.SERVER_URL,
         telegrams: [],
         telegramsPopular: [],
         categories: [],
         error: null,
-        headers: {'Content-Type': 'application/json', 'Authorization': 'Bearer d849f2fda81bd95443d7eea1c2965b8a1a915831c9f4a294569ad33b0b7975cf65abc9210e185bd9b4fb3b328e62e6266a2eed7aa959d790954eec14875722194ac981c125096470c5c43b4d90ca0f0f4d0f7ed59e787c00a51fff3dd09421119c3d4cc1f4a91943782162f787cee6ab804bf0eb0cf4ccd26c0e28826904aeb0'},
+        headers: {'Content-Type': 'application/json', 'Authorization': process.env.AUTH},
         channelByCategoryId: []
       }
     },
@@ -171,7 +171,7 @@
         }
       }
     },
-    async mounted () {
+    async mounted () {console.log(process.env);
       try {
         const responseChannels = await fetch(`${this.SERVER_URL}/api/telegrams`, {
           method: 'GET',

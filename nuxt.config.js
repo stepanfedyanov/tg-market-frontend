@@ -17,7 +17,9 @@ export default {
   },
 
   env: {
-    strapiBaseUri: process.env.API_URL || "http://localhost:1337"
+    SERVER_URL: process.env.API_URL,
+    AUTH: process.env.AUTH,
+    DOMAIN: process.env.DOMAIN
   },
 
   // Global CSS: https://go.nuxtjs.dev/config-css
