@@ -7,8 +7,8 @@
         </div>
 
         <Title titleBlack='true'>Оставь заявку и твой канал попадет на биржу!</Title>
-    
-        
+
+
 
         <form class="form" method="POST" @submit="submitForm">
             <P>{{ result }}</P>
@@ -90,9 +90,9 @@
 export default {
     data () {
         return {
-            SERVER_URL: process.env.SERVER_URL,
+            SERVER_URL: process.env.serverUrl,
             result: null,
-            headers: {'Content-Type': 'application/json', 'Authorization': process.env.AUTH}
+            headers: {'Content-Type': 'application/json', 'Authorization': process.env.auth}
         }
     },
     methods: {

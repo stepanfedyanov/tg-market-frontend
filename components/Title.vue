@@ -4,7 +4,7 @@ export default {
 }
 </script>
 
-<template>  
+<template>
     <h1 class="title" :class="{titleBlack}">
         <slot></slot>
         <span v-if="num" class="title__num">{{ num }}</span>
@@ -37,7 +37,10 @@ export default {
             height: 24px;
 
             background: #DF5349;
-            border-radius: 36px;        
+            border-radius: 36px;
+            @media (max-width: 414px) {
+              display: none;
+            }
         }
     }
 

@@ -36,6 +36,7 @@ export default {
         display: flex;
         align-items: center;
         margin-right: 40px;
+
         span {
             margin-right: 15px;
         }

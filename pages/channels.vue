@@ -2,10 +2,11 @@
   export default {
     data () {
       return {
-        SERVER_URL: process.evn.SERVER_URL,
+        SERVER_URL: process.env.serverUrl,
         telegrams: [],
+        domain: process.env.domain,
         error: null,
-        headers: {'Content-Type': 'application/json', 'Authorization': process.evn.AUTH},
+        headers: {'Content-Type': 'application/json', 'Authorization': process.env.auth},
         channelByCategoryId: []
       }
     },
@@ -54,14 +55,14 @@
             {{ error }}
             </div>
 
-        
+
             <ChanelContainer v-else>
             <ChanelCard v-for="telegram in telegrams" :key="telegram.id"
-            :name="telegram.attributes.name" 
+            :name="telegram.attributes.name"
             people="545 943"
             :tag="telegram.attributes.tag"
             :subText="telegram.attributes.shortText"
-            :link="`${process.env.DOMAIN}/channel/` + telegram.id"></ChanelCard>
+            :link="`${domain}/channel/` + telegram.id"></ChanelCard>
             </ChanelContainer>
         </div>
         </section>

@@ -65,14 +65,14 @@
           {{ error }}
         </div>
 
-       
+
         <ChanelContainer v-else>
           <ChanelCard v-for="telegram in telegrams" :key="telegram.id"
-          :name="telegram.attributes.name" 
+          :name="telegram.attributes.name"
           people="545 943"
           :tag="telegram.attributes.tag"
           :subText="telegram.attributes.shortText"
-          :link="`${process.env.DOMAIN}/channel/` + telegram.id"></ChanelCard>
+          :link="`${domain}/channel/` + telegram.id"></ChanelCard>
         </ChanelContainer>
       </div>
     </section>
@@ -107,22 +107,46 @@
     }
     .info {
         padding-top: 60px;
+        @media (max-width: 787px) {
+          width: 100%;
+
+        }
         &__wrapper {
-            display: flex;
-            align-items: flex-start;
-            justify-content: space-between;
-            position: relative;
-            &::before {
-                content: url('~/assets/img/clouds.svg');
-                position: absolute;
-                left: -50px;
-                z-index: -1
+          display: flex;
+          align-items: flex-start;
+          justify-content: space-between;
+          flex-wrap: wrap;
+          gap: 40px;
+          position: relative;
+          @media (max-width: 787px) {
+            align-items: center;
+            justify-content: center;
+          }
+
+          &::before {
+            content: url('~/assets/img/clouds.svg');
+            position: absolute;
+            left: -50px;
+            z-index: -1;
+            @media (max-width: 787px) {
+              display: none;
             }
+          }
+        }
+        @media (max-width: 787px) {
+          &__image {
+            img {
+              width: 100%;
+            }
+          }
         }
         &__info {
             max-width: 434px;
             .info__text {
                 margin-top: 45px;
+            }
+            @media (max-width: 787px) {
+              width: 100%;
             }
         }
         &__text {
@@ -133,7 +157,10 @@
         }
         &__cloud-wrap {
             display: flex;
-            align-items: center
+            align-items: center;
+            @media (max-width: 787px) {
+              justify-content: center;
+            }
         }
         &__stat {
             .info__cloud-wrap {
@@ -149,6 +176,13 @@
             min-height: 62px;
             display: flex;
             padding-top: 50px;
+            @media (max-width: 425px) {
+              flex-wrap: wrap;
+              gap: 20px;
+              .button {
+                width: 100%
+              }
+            }
         }
     }
 </style>
@@ -158,17 +192,18 @@
   export default {
     data () {
       return {
-        SERVER_URL: process.env.SERVER_URL,
+        SERVER_URL: process.env.serverUrl,
         telegrams: [],
+        domain: process.env.DOMAIN,
         params: [],
         error: null,
-        headers: {'Content-Type': 'application/json', 'Authorization': process.env.AUTH},
+        headers: {'Content-Type': 'application/json', 'Authorization': process.env.auth},
         channelByCategoryId: []
       }
     },
     async asyncData({ params }) {
       const id = params.slug // When calling /abc the slug will be "abc"
-      
+
       return { id }
     },
     methods: {
