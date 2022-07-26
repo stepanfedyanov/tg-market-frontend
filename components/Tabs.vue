@@ -48,10 +48,19 @@ export default {
             display: flex;
             align-items: center;
             justify-content: space-between;
+            @media (max-width: 715px) {
+              flex-direction: column-reverse;
+
+            }
         }
         &__tabs {
             list-style: none;
             display: flex;
+            flex-wrap: wrap;
+            @media (max-width: 715px) {
+              padding: 0;
+              justify-content: center;
+            }
         }
         &__window {
             display: none;

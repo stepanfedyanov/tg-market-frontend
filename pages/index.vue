@@ -25,15 +25,15 @@
       </div>
     </section>
 
-    <!-- <div v-if="error">
+    <div v-if="error">
       {{ error }}
     </div>
 
-    <ul v-else>
-      <li  v-for="telegram in telegrams.data" :key="telegram.id">
-      {{telegram.attributes.name}}
-      </li>
-    </ul> -->
+<!--    <ul v-else>-->
+<!--      <li  v-for="telegram in telegrams.data" :key="telegram.id">-->
+<!--      {{telegram.attributes.name}}-->
+<!--      </li>-->
+<!--    </ul>-->
 
     <section class="popular">
       <div class="container">
@@ -43,14 +43,14 @@
           {{ error }}
         </div>
 
-       
+
         <ChanelContainer v-else>
           <ChanelCard v-for="telegram in telegramsPopular" :key="telegram.id"
-          :name="telegram.attributes.name" 
+          :name="telegram.attributes.name"
           people="545 943"
           :tag="telegram.attributes.tag"
           :subText="telegram.attributes.shortText"
-          :link="'http://localhost:3000/channel/' + telegram.id"></ChanelCard>
+          :link="`${domain}/channel/` + telegram.id"></ChanelCard>
         </ChanelContainer>
       </div>
     </section>
@@ -71,11 +71,11 @@
 
         <ChanelContainer>
           <ChanelCard v-for="telegramCategory in channelByCategoryId.data" :key="telegramCategory.id"
-          :name="telegramCategory.attributes.name" 
+          :name="telegramCategory.attributes.name"
           people="545 943"
           :tag="telegramCategory.attributes.tag"
           :subText="telegramCategory.attributes.shortText"
-          :link="'http://localhost:3000/channel/' + telegramCategory.attributes.link"></ChanelCard>
+          :link="`${domain}/channel/` + telegramCategory.id"></ChanelCard>
         </ChanelContainer>
 
         <Button link="/channels">Больше каналов</Button>
@@ -103,7 +103,7 @@
               или взаимному пиару
             </P>
 
-            <MiniButton class="chanel-card__link" link="/add_my_channel">Перейти 
+            <MiniButton class="chanel-card__link" link="/add_my_channel">Перейти
                 <svg width="15" height="13" viewBox="0 0 15 13" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <path d="M0.919612 5.66154L9.85461 1.80292C10.7366 1.40098 13.7277 0.114768 13.7277 0.114768C13.7277 0.114768 15.1082 -0.447948 14.9932 0.918648C14.9548 1.48136 14.6481 3.45087 14.3413 5.58115L13.3826 11.8916C13.3826 11.8916 13.3059 12.8161 12.654 12.9768C12.0021 13.1376 10.9283 12.4141 10.7366 12.2534C10.5832 12.1328 7.86053 10.324 6.86349 9.43977C6.59506 9.19861 6.28828 8.71628 6.90184 8.15357C8.28236 6.82716 9.9313 5.17921 10.9283 4.13417C11.3885 3.65184 11.8487 2.52641 9.9313 3.893L4.52429 7.71143C4.52429 7.71143 3.91073 8.11337 2.7603 7.75163C1.60987 7.38988 0.267702 6.90755 0.267702 6.90755C0.267702 6.90755 -0.652641 6.30464 0.919612 5.66154Z" fill="#2BA0D2"/>
                 </svg>
@@ -136,12 +136,13 @@
     name: 'IndexPage',
     data () {
       return {
-        SERVER_URL: 'http://localhost:1337',
+        SERVER_URL: process.env.serverUrl,
+        domain: process.env.domain,
         telegrams: [],
         telegramsPopular: [],
         categories: [],
         error: null,
-        headers: {'Content-Type': 'application/json', 'Authorization': 'Bearer d849f2fda81bd95443d7eea1c2965b8a1a915831c9f4a294569ad33b0b7975cf65abc9210e185bd9b4fb3b328e62e6266a2eed7aa959d790954eec14875722194ac981c125096470c5c43b4d90ca0f0f4d0f7ed59e787c00a51fff3dd09421119c3d4cc1f4a91943782162f787cee6ab804bf0eb0cf4ccd26c0e28826904aeb0'},
+        headers: {'Content-Type': 'application/json', 'Authorization': process.env.auth},
         channelByCategoryId: []
       }
     },
@@ -165,7 +166,7 @@
           }).then(this.checkStatus)
             .then(this.parseJSON);
 
-          this.channelByCategoryId = responceCategoryById.data.attributes.Channel;  
+          this.channelByCategoryId = responceCategoryById.data.attributes.Channel;
         } catch (error) {
           console.log(error)
         }
@@ -183,11 +184,11 @@
           headers: this.headers,
         }).then(this.checkStatus)
           .then(this.parseJSON),
-        responseChannelsByCategories = await fetch(`${this.SERVER_URL}/api/categories/3?populate=*`, {
+        responseChannelsByCategories = await fetch(`${this.SERVER_URL}/api/categories/1?populate=*`, {
           method: 'GET',
           headers: this.headers,
         }).then(this.checkStatus)
-          .then(this.parseJSON); 
+          .then(this.parseJSON);
 
         this.telegrams = responseChannels;
         this.telegramsPopular = responseChannels.data.filter(i => i.attributes.isPopular === true);
@@ -262,6 +263,16 @@
       text-transform: uppercase;
 
       color: #B6E1FF;
+      @media (max-width: 430px) {
+        display: none;
+      }
+    }
+    &__btn-wrapper {
+      @media (max-width: 430px) {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
     }
     &__down {
       position: absolute;
@@ -273,7 +284,7 @@
 
   .popular {
     padding-top: 60px;
-    
+
   }
 
   .category {

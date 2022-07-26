@@ -22,8 +22,9 @@ export default {
 
 <style lang="scss">
     .button {
-        width: 259px;
-        height: 62px;
+        display: inline-flex;
+        justify-content: center;
+        align-items: center;
         background: #FFFFFF;
         border-radius: 10px;
 
@@ -42,7 +43,7 @@ export default {
         }
         &_mini {
             width: 146px;
-            height: 24px;
+            height: 24px!important;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -59,7 +60,7 @@ export default {
             &:hover {
                 border: 1px solid #2BA0D2;
             }
-            
+
         }
         &.background {
             background: #ECECEC;

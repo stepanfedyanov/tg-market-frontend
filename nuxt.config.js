@@ -3,7 +3,7 @@ export default {
   head: {
     title: 'tg-market-frontend',
     htmlAttrs: {
-      lang: 'en'
+      lang: 'ru'
     },
     meta: [
       { charset: 'utf-8' },
@@ -17,7 +17,9 @@ export default {
   },
 
   env: {
-    strapiBaseUri: process.env.API_URL || "http://localhost:1337"
+    serverUrl: process.env.API_URL,
+    auth: process.env.AUTH,
+    domain: process.env.DOMAIN
   },
 
   // Global CSS: https://go.nuxtjs.dev/config-css
@@ -39,10 +41,10 @@ export default {
 
   // Modules: https://go.nuxtjs.dev/config-modules
   modules: [
-    
+
   ],
 
-  
+
 
   // Build Configuration: https://go.nuxtjs.dev/config-build
   build: {

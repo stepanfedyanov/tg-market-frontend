@@ -12,8 +12,9 @@ export default {
 
 <style lang="scss">
     .button {
-        width: 259px;
-        height: 62px;
+        display: inline-flex;
+        justify-content: center;
+        align-items: center;
         background: #FFFFFF;
         border-radius: 10px;
 

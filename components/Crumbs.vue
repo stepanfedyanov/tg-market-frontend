@@ -61,7 +61,9 @@ export default {
 <style scoped>
     ol {
         list-style: none;
-        padding-left: 0
+        padding-left: 0;
+        display: flex;
+        flex-wrap: wrap;
     }
     li {
         display: inline;

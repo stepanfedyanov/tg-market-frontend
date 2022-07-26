@@ -21,8 +21,7 @@ export default {
     <div class="more-panel" :data-id="num" @click="openPanel(num)">
         <button class="more-panel__accordion">
             <div class="more-panel__num">{{ num }}</div>
-            {{ title }}
-
+            <div class="more-panel__text">{{ title }}</div>
             <div class="more-panel__panel-close">
                 <svg width="20" height="12" viewBox="0 0 20 12" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <path d="M1 1L10 10L19 1" stroke="#202020" stroke-width="2"/>
@@ -42,6 +41,7 @@ export default {
         box-shadow: 0px 2px 98px rgba(227, 232, 238, 0.38);
         border-radius: 12px;
         padding-left: 22px;
+        padding-right: 22px;
         width: 100%;
         margin-bottom: 18px;
         transition: 0.3s all;
@@ -51,7 +51,8 @@ export default {
             background: transparent;
             height: 64px;
             border: none;
-            display: flex;
+            display: grid;
+            grid-template-columns: 1fr 18fr 1fr;
             align-items: center;
         }
         &__num {
@@ -66,6 +67,9 @@ export default {
             margin-right: 25px;
             background: linear-gradient(203.2deg, #37AEE2 21.67%, #1E96C8 70%);
         }
+        &__text {
+          text-align: left;
+        }
         &__panel {
             display: none;
             height: 0;
@@ -74,13 +78,6 @@ export default {
                 height: fit-content;
             }
         }
-        &__panel-close {
-            position: absolute;
-            top: 28px;
-            right: 53px;
-            &_active {
-                transform: rotate(270deg);
-            }
-        }
+
     }
 </style>
