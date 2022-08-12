@@ -7,7 +7,7 @@ export default {
 <template>
     <div class="chanel-card">
         <div class="chanel-card__header">
-            <img src="~/assets/img/example-tg-logo.png" :alt="name">
+            <img :src="avatarUrl" :alt="name">
             <div class="chanel-card__text-wrapper">
                 <h4>{{ name }}</h4>
                 <div class="chanel-card__text-container">
@@ -44,13 +44,16 @@ export default {
         &__header {
             display: flex;
             align-items: center;
+            justify-content: space-between;
             img {
                 height: 78px;
                 width: 78px;
+                border-radius: 100%;
             }
         }
         &__text-wrapper {
             margin-left: 20px;
+            width: 70%;
             h4 {
                 margin: 0;
 
@@ -58,6 +61,8 @@ export default {
         }
         &__text-container {
             display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
             p {
                 margin-top: 8px;
                 margin-bottom: 0;
@@ -74,12 +79,8 @@ export default {
         }
         &__tag {
             color: #8294A5;
-            margin-left: 20px;
             @media (max-width: 372px) {
               font-size: 12px
-            }
-            &::before {
-                content: '@';
             }
         }
         &__text {

@@ -6,23 +6,25 @@
             <Crumbs :title="params.name" />
         </div>
 
+        
+
         <section class="info">
             <div class="container-mini">
                 <div class="info__wrapper">
                     <div class="info__image">
-                        <img src="~/assets/img/example-tg-logo.png" alt="Пример канала">
-                        <div class="info__stat">
+                        <img :src="params.logoUrl" alt="Пример канала">
+                        <!-- <div class="info__stat">
                             <h4 class="info__text">Статистика:</h4>
                             <div class="info__cloud-wrap">
                                 <MiniInfo background="gray" icon="view">6428</MiniInfo>
                                 <MiniInfo background="gray" icon="repost">314</MiniInfo>
                             </div>
-                        </div>
+                        </div> -->
                     </div>
                     <div class="info__info">
                         <div class="info__cloud-wrap">
-                            <MiniInfo icon="people">1 545 943</MiniInfo>
-                            <MiniInfo icon="people">Новости и СМИ</MiniInfo>
+                            <MiniInfo icon="people">{{ params.subs }}</MiniInfo>
+                            <MiniInfo icon="people">{{ params.category }}</MiniInfo>
                         </div>
                         <h1 class="h1">{{ params.name }}</h1>
 
@@ -32,7 +34,7 @@
 
                         <div class="info__btn-wrap">
                             <MiniButton background="true" icon="tg" :link="'https://t.me/' + params.tag">Перейти</MiniButton>
-                            <MiniButton background="true" icon="stat" link="#stat">Статистика</MiniButton>
+                            <!-- <MiniButton background="true" icon="stat" link="#stat">Статистика</MiniButton> -->
                         </div>
 
                     </div>
@@ -40,7 +42,7 @@
             </div>
         </section>
 
-        <section class="graph" id="stat">
+        <!-- <section class="graph" id="stat">
             <div class="container">
                 <Title titleBlack="true" num="01">Статистика</Title>
 
@@ -55,24 +57,30 @@
                     </div>
                 </Tabs>
             </div>
-        </section>
+        </section> -->
 
         <section class="popular">
       <div class="container">
         <Title titleBlack='true' num="02">Похожие каналы</Title>
 
-        <div v-if="error">
+        <div v-if="isLoad" class="loading">
+          <img src="~/assets/img/spinner-2.gif" alt="Load">
+        </div>
+
+        <div class="loading" v-if="error">
           {{ error }}
         </div>
+
 
 
         <ChanelContainer v-else>
           <ChanelCard v-for="telegram in telegrams" :key="telegram.id"
           :name="telegram.attributes.name"
-          people="545 943"
+          :people="telegram.attributes.subs"
           :tag="telegram.attributes.tag"
           :subText="telegram.attributes.shortText"
-          :link="`${domain}/channel/` + telegram.id"></ChanelCard>
+          :link="`/channel/` + telegram.id"
+          :avatarUrl="telegram.attributes.logoUrl"></ChanelCard>
         </ChanelContainer>
       </div>
     </section>
@@ -107,9 +115,14 @@
     }
     .info {
         padding-top: 60px;
+        &__image {
+          img {
+            width: 330px;
+            height: 330px;
+          }
+        }
         @media (max-width: 787px) {
           width: 100%;
-
         }
         &__wrapper {
           display: flex;
@@ -194,8 +207,9 @@
       return {
         SERVER_URL: process.env.serverUrl,
         telegrams: [],
-        domain: process.env.DOMAIN,
+        domain: process.env.domain,
         params: [],
+        isLoad: true,
         error: null,
         headers: {'Content-Type': 'application/json', 'Authorization': process.env.auth},
         channelByCategoryId: []
@@ -232,10 +246,26 @@
         }).then(this.checkStatus)
           .then(this.parseJSON);
 
-        this.telegrams = responseChannels.data;
         this.params = channelData.data.attributes;
 
-        console.log(this.params);
+        for (let i = 1; i <= responseChannels.meta.pagination.pageCount; i++) {
+            const channels = await fetch(`${this.SERVER_URL}/api/telegrams?pagination[page]=${i}`, {
+              method: 'GET',
+              headers: this.headers,
+            }).then(this.checkStatus)
+              .then(this.parseJSON);
+
+            const telegrams = channels.data.filter(i => i.attributes.category == this.params.category);
+
+            this.telegrams = [...this.telegrams, ...telegrams];
+            if (this.telegrams.length >= 1) {
+              this.isLoad = false;
+            }
+            if (i === responseChannels.meta.pagination.pageCount && this.telegrams.length === 0) {
+              this.error = 'К сожалению, ничего не найдено :(';
+              this.isLoad = false;
+            }
+        }
       } catch (error) {
         this.error = error
       }

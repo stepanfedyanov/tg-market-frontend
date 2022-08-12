@@ -1,11 +1,15 @@
 <script>
 export default {
-    props: ['link']
+    props: ['link', 'updated']
 }
 </script>
 
 <template>
-    <a :href="link" class="button">
+    <a v-if="updated" @click="$emit('update')" class="button">
+        <slot></slot>
+    </a>
+
+    <a v-else :href="link" class="button">
         <slot></slot>
     </a>
 </template>

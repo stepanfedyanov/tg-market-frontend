@@ -10,8 +10,7 @@
             <Title>Биржа рекламы со встроенным сервисом аналитики телеграм каналов</Title>
             <P>Самый полный каталог телеграмм ботов, стикеров, и каналов Всегда будьте в курсе событий. Подписывайся</P>
             <div class="promo__btn-wrapper">
-              <Button>Перейти в каталог</Button>
-              <a href="#" class="promo__btn">Еще кнопка</a>
+              <Button link="/channels">Перейти в каталог</Button>
             </div>
           </div>
         </div>
@@ -47,10 +46,11 @@
         <ChanelContainer v-else>
           <ChanelCard v-for="telegram in telegramsPopular" :key="telegram.id"
           :name="telegram.attributes.name"
-          people="545 943"
+          :people="telegram.attributes.subs"
           :tag="telegram.attributes.tag"
           :subText="telegram.attributes.shortText"
-          :link="`${domain}/channel/` + telegram.id"></ChanelCard>
+          :link="`${domain}/channel/` + telegram.id"
+          :avatarUrl="telegram.attributes.logoUrl"></ChanelCard>
         </ChanelContainer>
       </div>
     </section>
@@ -64,7 +64,7 @@
         </div>
 
         <ChanelContainer v-else>
-          <CategoryBtn v-for="category in categories" :key="category.id" @click.native="updateListCategory(category.id)">
+          <CategoryBtn v-for="category in categories" :key="category.id" :link="'/category/' + category.id">
             {{ category.attributes.Category }}
           </CategoryBtn>
         </ChanelContainer>
@@ -72,10 +72,11 @@
         <ChanelContainer>
           <ChanelCard v-for="telegramCategory in channelByCategoryId.data" :key="telegramCategory.id"
           :name="telegramCategory.attributes.name"
-          people="545 943"
+          :people="telegramCategory.attributes.subs"
           :tag="telegramCategory.attributes.tag"
           :subText="telegramCategory.attributes.shortText"
-          :link="`${domain}/channel/` + telegramCategory.id"></ChanelCard>
+          :link="`${domain}/channel/` + telegramCategory.id"
+          :avatarUrl="telegramCategory.attributes.logoUrl"></ChanelCard>
         </ChanelContainer>
 
         <Button link="/channels">Больше каналов</Button>
@@ -189,12 +190,27 @@
           headers: this.headers,
         }).then(this.checkStatus)
           .then(this.parseJSON);
-
+          
         this.telegrams = responseChannels;
-        this.telegramsPopular = responseChannels.data.filter(i => i.attributes.isPopular === true);
         this.channelByCategoryId = responseChannelsByCategories.data.attributes.Channel;
-
         this.categories = responseCategories.data;
+
+        for (let i = 1; i < responseChannels.meta.pagination.pageCount; i++) {
+          if (this.telegramsPopular.length < 6) {
+            const popularChannels = await fetch(`${this.SERVER_URL}/api/telegrams?pagination[page]=${i}`, {
+              method: 'GET',
+              headers: this.headers,
+            }).then(this.checkStatus)
+              .then(this.parseJSON);
+
+            const popular = popularChannels.data.filter(i => i.attributes.isPopular === true);
+
+            this.telegramsPopular = [...this.telegramsPopular, ...popular];
+          } else {
+            break;
+          }
+        }
+
       } catch (error) {
         this.error = error
       }
