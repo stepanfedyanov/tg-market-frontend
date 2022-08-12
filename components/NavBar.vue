@@ -28,7 +28,7 @@ export default {
                     <NuxtLink to="/stickers" class="nav__link">Стикеры</NuxtLink>
                     <NuxtLink to="/chanels" class="nav__link">Каналы</NuxtLink>
                     <NuxtLink to="/faq" class="nav__link">FAQ</NuxtLink>
-                    <NuxtLink to="/catalog" class="nav__link">Каталог</NuxtLink>
+                    <NuxtLink to="/chanels" class="nav__link">Каталог</NuxtLink>
                 </div>
 
                 <NuxtLink to="/webogram" class="nav__link">Webogram</NuxtLink>

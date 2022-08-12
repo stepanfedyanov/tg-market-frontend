@@ -40,7 +40,7 @@ export default {
       const params = fullPath.startsWith('/')
         ? fullPath.substring(1).split('/')
         : fullPath.split('/')
-      const crumbs = []
+      let crumbs = []
       let path = ''
       params.forEach((param, index) => {
         path = `${path}/${param}`
@@ -52,6 +52,12 @@ export default {
           })
         }
       })
+      crumbs.forEach((i, index) => {
+        if (i.title === 'Category' || i.title === 'Channel') {
+          crumbs[index] = crumbs[index + 1]
+          crumbs.pop()
+        }
+      });
       return crumbs
     },
   },
