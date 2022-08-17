@@ -215,6 +215,22 @@
         channelByCategoryId: []
       }
     },
+    head() {
+      return {
+          title: `Telegram-канал "${this.params.name}" — @${this.params.tag} — Telegram House`,
+          meta: [
+            {
+              hid: 'description',
+              name: 'description',
+              content: this.params.about + ` - Телеграм канал "${this.params.name}" — @${this.params.tag} — Telegram House`
+            },
+            {
+              name: 'keywords',
+              content: `tg, telegram, телеграм, тг, ${this.params.name}, ${this.params.tag}`
+            }
+          ],
+      }
+    } ,
     async asyncData({ params }) {
       const id = params.slug // When calling /abc the slug will be "abc"
 
@@ -257,7 +273,12 @@
 
             const telegrams = channels.data.filter(i => i.attributes.category == this.params.category);
 
-            this.telegrams = [...this.telegrams, ...telegrams];
+            telegrams.forEach(item => {
+              if (this.telegrams.length < 6) {
+                this.telegrams.push(item);
+              }
+            });
+            
             if (this.telegrams.length >= 1) {
               this.isLoad = false;
             }

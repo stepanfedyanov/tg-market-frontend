@@ -1,14 +1,15 @@
 export default {
   // Global page headers: https://go.nuxtjs.dev/config-head
   head: {
-    title: 'tg-market-frontend',
+    title: 'Каталог Telegram-каналов и чатов / Россия — TelegramHouse',
     htmlAttrs: {
       lang: 'ru'
     },
     meta: [
       { charset: 'utf-8' },
       { name: 'viewport', content: 'width=device-width, initial-scale=1' },
-      { hid: 'description', name: 'description', content: '' },
+      { hid: 'description', name: 'description', content: 'Один из крупнейших каталогов Telegram-каналов и чатов TelegrmHouse — Россия и СНГ. Более 898 253 каналов и чатов, классифицированных по странам, языкам и тематикам. Настоящий дом всех телеграм каналов' },
+      { name: 'keywords', content: 'каталог telegram, каталог, телеграм, telegram-каналы, топ каналов, лучшие каналы, telegram, Россия'},
       { name: 'format-detection', content: 'telephone=no' }
     ],
     link: [
