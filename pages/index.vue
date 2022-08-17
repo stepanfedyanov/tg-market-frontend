@@ -52,6 +52,8 @@
           :link="`${domain}/channel/` + telegram.id"
           :avatarUrl="telegram.attributes.logoUrl"></ChanelCard>
         </ChanelContainer>
+
+        <Button link="/channels">Больше каналов</Button>
       </div>
     </section>
 
@@ -78,8 +80,6 @@
           :link="`${domain}/channel/` + telegramCategory.id"
           :avatarUrl="telegramCategory.attributes.logoUrl"></ChanelCard>
         </ChanelContainer>
-
-        <Button link="/channels">Больше каналов</Button>
 
       </div>
     </section>
@@ -134,19 +134,19 @@
 
 <script>
   export default {
-    name: 'IndexPage',
-    data () {
-      return {
-        SERVER_URL: process.env.serverUrl,
-        domain: process.env.domain,
-        telegrams: [],
-        telegramsPopular: [],
-        categories: [],
-        error: null,
-        headers: {'Content-Type': 'application/json', 'Authorization': process.env.auth},
-        channelByCategoryId: []
-      }
-    },
+      name: 'IndexPage',
+      data () {
+        return {
+          SERVER_URL: process.env.serverUrl,
+          domain: process.env.domain,
+          telegrams: [],
+          telegramsPopular: [],
+          categories: [],
+          error: null,
+          headers: {'Content-Type': 'application/json', 'Authorization': process.env.auth},
+          channelByCategoryId: []
+        }
+      },
     methods: {
       parseJSON: function (resp) {
         return (resp.json ? resp.json() : resp);
@@ -300,20 +300,19 @@
 
   .popular {
     padding-top: 60px;
-
+    & > .container > .button {
+        height: 15px;
+        width: fit-content;
+        display: block;
+        margin: 0 auto;
+        margin-top: 30px;
+        background: linear-gradient(241.57deg, #37AEE2 2.93%, #1E96C8 103.57%);
+        color: #fff;
+      }
   }
 
   .category {
     padding-top: 60px;
-    & > .container > .button {
-      height: 15px;
-      width: fit-content;
-      display: block;
-      margin: 0 auto;
-      margin-top: 30px;
-      background: linear-gradient(241.57deg, #37AEE2 2.93%, #1E96C8 103.57%);
-      color: #fff;
-    }
   }
 
   .about-us {

@@ -1,11 +1,20 @@
 <script>
 export default {
-    props: ['name', 'people', 'tag', 'subText', 'link', 'avatarUrl' ]
+    props: ['name', 'people', 'tag', 'subText', 'link', 'avatarUrl' ],
+    methods: {
+        getRightText( text ) {
+            if (text.split('').length >= 70) {
+                return text.substring(0, 70) + '...'
+            } else {
+                return text
+            }
+        }
+    }
 }
 </script>
 
 <template>
-    <div class="chanel-card">
+    <a :href="link" class="chanel-card">
         <div class="chanel-card__header">
             <img :src="avatarUrl" :alt="name">
             <div class="chanel-card__text-wrapper">
@@ -18,7 +27,7 @@ export default {
         </div>
         <div class="chanel-card__body">
             <p class="chanel-card__text">
-                {{ subText }}
+                {{ getRightText(subText) }}
             </p>
             <MiniButton :link="link" class="chanel-card__link">Перейти
                 <svg width="15" height="13" viewBox="0 0 15 13" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -26,7 +35,7 @@ export default {
                 </svg>
             </MiniButton>
         </div>
-    </div>
+    </a>
 </template>
 
 <style lang="scss">
@@ -35,9 +44,14 @@ export default {
         height: 256px;
         width: 323px;
         padding: 20px 25px;
+        text-decoration: none;
         transition: 0.2s all;
         background: #FFFFFF;
         border-radius: 23px;
+        color: inherit;
+        &:visited {
+            color: inherit;
+        }
         &:hover {
           box-shadow: 0px 2px 98px rgba(227, 232, 238, 0.38);
         }

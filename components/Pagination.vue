@@ -2,7 +2,8 @@
 export default {
     data() {
         return {
-            activePage: 1
+            activePage: 1,
+            isUpdate: true,
         }
     },
     props: ['pages'],
@@ -10,7 +11,8 @@ export default {
         updateList() {
             if (this.activePage < this.pages) {
                 this.activePage++;
-                this.$emit('updateChannels', this.activePage)
+                this.$emit('updateChannels', this.activePage, this.isUpdate);
+                this.isUpdate = false;
             }
         }
     }

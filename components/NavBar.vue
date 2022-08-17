@@ -41,7 +41,7 @@ export default {
                     </svg>
                 </NuxtLink>
 
-                <NuxtLink to="/chanels" class="nav__link">Каналы</NuxtLink>
+                <NuxtLink to="/channels" class="nav__link">Каналы</NuxtLink>
                 <NuxtLink to="/faq" class="nav__link">FAQ</NuxtLink>
                 <NuxtLink to="/catalog" class="nav__link">Каталог</NuxtLink>
             </div>
