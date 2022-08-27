@@ -3,7 +3,7 @@
 import Chart from 'chart.js/auto';
 
 export default {
-
+    props: ['data'],
     mounted() {
         const ctx = document.getElementById('myChart').getContext('2d');
         ctx.fillStyle = '#F9F9F9';
@@ -11,7 +11,7 @@ export default {
             type: 'line',
             data: {
                 datasets: [{
-                    data: [{x: 'Сентябрь', y: 10000}, {x: 'Октябрь', y: 30000}, {x: 'Ноябрь', y: 100220}, {x: 'Декабрь', y: 100000}, {x: '113123123', y: 100000}, {x: '2445', y: 100000}, {x: '333', y: 100000}, {x: '33123', y: 100000}, {x: '12', y: 100000} ],
+                    data: this.data,
                     borderWidth: 2,
                     pointStyle: 'circle',
                     pointRadius: 5,
@@ -28,12 +28,7 @@ export default {
                     }
                 },
                 responsive: true,
-                scales: {
-                    y: {
-                        suggestedMax: 100000,
-                        suggestedMin: 5000
-                    },
-                },
+                
             }
         });
     }

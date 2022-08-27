@@ -26,13 +26,11 @@ export default {
 <template>
     <div class="tabs">
         <div class="tabs__header">
-            <h5 class="tabs__title">Количество подписчиков</h5>
+            <h5 class="tabs__title"></h5>
 
             <ul class="tabs__tabs">
-                <li @click="(event) => changeWindow(event)" class="tabs__tab">День</li>
-                <li @click="(event) => changeWindow(event)" class="tabs__tab">Неделя</li>
-                <li @click="(event) => changeWindow(event)" class="tabs__tab">Месяц</li>
-                <li @click="(event) => changeWindow(event)" class="tabs__tab tabs__tab_active">Все время</li>
+                <li @click="(event) => changeWindow(event)" class="tabs__tab tabs__tab_active">Количество подписчиков</li>
+                <li @click="(event) => changeWindow(event)" class="tabs__tab">Индекс цитирования</li>
             </ul>
         </div>
 
@@ -70,7 +68,7 @@ export default {
         }
         &__tab {
             cursor: pointer;
-            width: 114px;
+            padding: 0 15px;
             height: 35px;
             display: flex;
             align-items: center;
