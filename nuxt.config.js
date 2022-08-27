@@ -10,7 +10,8 @@ export default {
       { name: 'viewport', content: 'width=device-width, initial-scale=1' },
       { hid: 'description', name: 'description', content: 'Один из крупнейших каталогов Telegram-каналов и чатов TelegrmHouse — Россия и СНГ. Более 898 253 каналов и чатов, классифицированных по странам, языкам и тематикам. Настоящий дом всех телеграм каналов' },
       { name: 'keywords', content: 'каталог telegram, каталог, телеграм, telegram-каналы, топ каналов, лучшие каналы, telegram, Россия'},
-      { name: 'format-detection', content: 'telephone=no' }
+      { name: 'format-detection', content: 'telephone=no' },
+      { name: "yandex-verification", content: "82a2652da5ce4ddf" }
     ],
     link: [
       { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }
