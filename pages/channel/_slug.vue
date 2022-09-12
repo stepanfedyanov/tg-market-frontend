@@ -23,7 +23,7 @@
                     </div>
                     <div class="info__info">
                         <div class="info__cloud-wrap">
-                            <MiniInfo icon="people">{{ params.subs }}</MiniInfo>
+                            <MiniInfo icon="people">{{ subsNow }}</MiniInfo>
                             <MiniInfo icon="people">{{ params.category }}</MiniInfo>
                         </div>
                         <h1 class="h1">{{ params.name }}</h1>
@@ -98,20 +98,7 @@
       </div>
     </section>
 
-        <section class="more">
-        <div class="container">
-            <Title titleBlack="true" num="03">Часто-задаваемые вопросы</Title>
-
-            <ChanelContainer>
-            <More num="01" title="С помощью нашей биржи">Это бесплатный сервис для продвижения ваших Telegram каналов в интернете. С помощью нашей биржи вы всегда можете найти выгодные предложения по размещению рекламы или взаимному пиару С помощью нашей биржи вы всегда можете найти выгодные предложения по размещению рекламы или взаимному пиару</More>
-            <More num="02" title="С помощью нашей биржи">Это бесплатный сервис для продвижения ваших Telegram каналов в интернете. С помощью нашей биржи вы всегда можете найти выгодные предложения по размещению рекламы или взаимному пиару С помощью нашей биржи вы всегда можете найти выгодные предложения по размещению рекламы или взаимному пиару</More>
-            <More num="03" title="С помощью нашей биржи">Это бесплатный сервис для продвижения ваших Telegram каналов в интернете. С помощью нашей биржи вы всегда можете найти выгодные предложения по размещению рекламы или взаимному пиару С помощью нашей биржи вы всегда можете найти выгодные предложения по размещению рекламы или взаимному пиару</More>
-            <More num="04" title="С помощью нашей биржи">Это бесплатный сервис для продвижения ваших Telegram каналов в интернете. С помощью нашей биржи вы всегда можете найти выгодные предложения по размещению рекламы или взаимному пиару С помощью нашей биржи вы всегда можете найти выгодные предложения по размещению рекламы или взаимному пиару</More>
-            </ChanelContainer>
-        </div>
-        </section>
-
-        <Footer />
+    <Footer />
     </div>
 </template>
 
@@ -249,6 +236,7 @@ import Graph from '../../components/Graph.vue'
             params: [],
             subsLoad: false,
             subsStat: [],
+            subsNow: 0,
             ci: {},
             isNotPrivate: true,
             isLoad: true,
@@ -259,12 +247,12 @@ import Graph from '../../components/Graph.vue'
     },
     head() {
         return {
-            title: `Telegram-канал "${this.params.name}" — @${this.params.tag} — Telegram House`,
+            title: `Telegram-канал "${this.params.name}" — ${this.params.tag} — Telegram House`,
             meta: [
                 {
                     hid: "description",
                     name: "description",
-                    content: this.params.about + ` - Телеграм канал "${this.params.name}" — @${this.params.tag} — Telegram House`
+                    content: this.params.about + ` - Телеграм канал "${this.params.name}" — ${this.params.tag} — Telegram House`
                 },
                 {
                     name: "keywords",
@@ -313,6 +301,8 @@ import Graph from '../../components/Graph.vue'
             } else {
               this.isNotPrivate = false;
             }
+            this.subsNow = this.subsStat[Object.keys(this.subsStat)[Object.keys(this.subsStat).length - 1]]['y']; 
+            console.log(this.subsNow)
             for (let i = 1; i <= responseChannels.meta.pagination.pageCount; i++) {
                 const channels = await fetch(`${this.SERVER_URL}/api/telegrams?pagination[page]=${i}`, {
                     method: "GET",
