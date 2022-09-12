@@ -11,7 +11,7 @@ export default {
             type: 'line',
             data: {
                 datasets: [{
-                    data: this.data,
+                    data: this.data.reverse(),
                     borderWidth: 2,
                     pointStyle: 'circle',
                     pointRadius: 5,

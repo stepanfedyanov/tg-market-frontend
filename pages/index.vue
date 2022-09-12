@@ -87,7 +87,7 @@
     <section class="about-us">
       <img class="about-us__clouds" src="~/assets/img/clouds-about-us.svg" alt="Облака">
       <div class="container">
-        <Title titleBlack="true" num="03">Что такое telegrator.ru?</Title>
+        <Title titleBlack="true" num="03">Что такое telegram.house?</Title>
 
         <div class="about-us__container">
           <img src="~/assets/img/about-us-img.png" alt="Что такое telegrator.ru?">
