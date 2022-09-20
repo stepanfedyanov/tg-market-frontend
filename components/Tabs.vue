@@ -29,7 +29,8 @@ export default {
             <h5 class="tabs__title"></h5>
 
             <ul class="tabs__tabs">
-                <li @click="(event) => changeWindow(event)" class="tabs__tab tabs__tab_active">Количество подписчиков</li>
+                <li @click="(event) => changeWindow(event)" class="tabs__tab tabs__tab_active">Общая аналитика</li>
+                <li @click="(event) => changeWindow(event)" class="tabs__tab">Количество подписчиков</li>
                 <li @click="(event) => changeWindow(event)" class="tabs__tab">Индекс цитирования</li>
             </ul>
         </div>

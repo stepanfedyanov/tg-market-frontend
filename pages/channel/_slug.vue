@@ -23,7 +23,7 @@
                     </div>
                     <div class="info__info">
                         <div class="info__cloud-wrap">
-                            <MiniInfo icon="people">{{ subsNow }}</MiniInfo>
+                            <MiniInfo icon="people">{{ params.subs }}</MiniInfo>
                             <MiniInfo icon="people">{{ params.category }}</MiniInfo>
                         </div>
                         <h1 class="h1">{{ params.name }}</h1>
@@ -48,6 +48,101 @@
 
                 <Tabs>
                     <div class="tabs__window tabs__window_active">
+                      <div class="stat">
+                        <div class="stat__card">
+                          <div class="stat__card-col">
+                            <span>{{ allStat.subs[0] }}</span><br>
+                            Подписчиков
+                          </div>
+                          <div class="stat__card-col">
+                            за сутки: <span class="mini"> {{ allStat.subs[1] }}</span><br>
+                            за неделю: <span class="mini"> {{ allStat.subs[2] }}</span><br>
+                            за месяц: <span class="mini"> {{ allStat.subs[3] }}</span><br>
+                          </div>
+                        </div>
+                        <div v-if="allStat.ci[0].substring(0, 1) === '-' || allStat.ci[0].substring(0, 1) === '+'" class="stat__card">
+                          <div class="stat__card-col">
+                            Рост подписчиков<br>
+                            <span>{{ allStat.ci[0] }}</span>
+                          </div>                  
+                          <div class="stat__card-col">
+                            Подписок: <span class="mini"> {{ allStat.ci[1] }}</span><br>
+                            Отписок: <span class="mini"> {{ allStat.ci[2] }}</span><br>
+                          </div>
+                        </div> 
+                        <div v-else class="stat__card">
+                          <div class="stat__card-col">
+                            Индекс цитирования<br>
+                            <span>{{ allStat.ci[0] }}</span>
+                          </div>
+                          <div class="stat__card-col">
+                            Упоминаний каналов: <span class="mini"> {{ allStat.ci[1] }}</span><br>
+                            Упоминаний: <span class="mini"> {{ allStat.ci[2] }}</span><br>
+                            Репостов: <span class="mini"> {{ allStat.ci[3] }}</span><br>
+                          </div>
+                        </div> 
+                        <div v-if="allStat.ci[0].substring(0, 1) === '-' || allStat.ci[0].substring(0, 1) === '+'" class="stat__card">
+                          <div class="stat__card-col">
+                            Индекс цитирования<br>
+                            <span>{{ allStat.err[0] }}</span>
+                          </div>
+                          <div class="stat__card-col">
+                            Упоминаний каналов: <span class="mini"> {{ allStat.err[1] }}</span><br>
+                            Упоминаний: <span class="mini"> {{ allStat.err[2] }}</span><br>
+                          </div>
+                          <!-- <div class="stat__card-col">
+                            Рост подписчиков<br>
+                            <span>{{ allStat.ci[0] }}</span>
+                          </div>                  
+                          <div class="stat__card-col">
+                            Подписок: <span> {{ allStat.ci[1] }}</span><br>
+                            Отписок: <span> {{ allStat.ci[2] }}</span><br>
+                          </div> -->
+                        </div> 
+                        <div v-else class="stat__card">
+                          <div class="stat__card-col">
+                            Средний охват<br>
+                            <span>{{ allStat.err[0] }}</span>
+                          </div>
+                          <div class="stat__card-col">
+                            ERR: <span class="mini">{{ allStat.err[1] }}</span><br>
+                            ERR24: <span class="mini">{{ allStat.err[2] }}</span>
+                          </div>
+                        </div> 
+                        <div v-if="!(allStat.ci[0].substring(0, 1) === '-' || allStat.ci[0].substring(0, 1) === '+')" class="stat__card">
+                          <div class="stat__card-col">
+                            Рекламный охват<br><span>{{allStat.comm[0]}}</span>
+                          </div>
+                          <div class="stat__card-col">
+                            за 12 часов: <span class="mini">{{ allStat.comm[1] }}</span><br>
+                            за 24 часов: <span class="mini">{{ allStat.comm[2] }}</span><br>
+                            за 48 часов: <span class="mini">{{ allStat.comm[3] }}</span><br>
+                          </div>
+                        </div> 
+                        <div v-if="!(allStat.ci[0].substring(0, 1) === '-' || allStat.ci[0].substring(0, 1) === '+')" class="stat__card">
+                          <div class="stat__card-col">
+                            Возраст канала<br> <span>{{ allStat.old }}</span>
+                          </div>
+                        </div> 
+                        <div v-if="!(allStat.ci[0].substring(0, 1) === '-' || allStat.ci[0].substring(0, 1) === '+')" class="stat__card stat__card_col">
+                          <div class="stat__card-col">
+                            Количество постов<br>
+                            <span>{{ allStat.posts[0] }}</span>
+                          </div>
+                          <div class="stat__card-col">
+                            Опубликовано вчера: <span class="mini">{{allStat.posts[1]}}</span>
+                            Опубликовано за неделю: <span class="mini">{{allStat.posts[2]}}</span>
+                            Опубликовано за месяц: <span class="mini">{{allStat.posts[3]}}</span>
+                          </div>
+                        </div>
+                        <div v-if="!(allStat.ci[0].substring(0, 1) === '-' || allStat.ci[0].substring(0, 1) === '+')" class="stat__card">
+                          <div class="stat__card-col">
+                            Охват аудитории:<br> <span>{{allStat['post:'][0]}}</span>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="tabs__window">
                       <Graph v-if="subsLoad" :data="subsStat"/>
                     </div>
                     <div class="tabs__window">
@@ -115,6 +210,43 @@
     .breadcrumbs {
         display: flex;
         justify-content: center;
+    }
+    .stat {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      &__card {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 15px;
+        width: 45%;
+        @media (max-width: 650px) {
+          width: 100%
+        }
+        margin-bottom: 20px;
+        border: 1px #2FA6DA solid;
+        border-radius: 10px;
+        &_col {
+            flex-direction: column;
+            .stat__card-col:last-of-type {
+              margin-top: 20px;
+              text-align: center;
+            }
+        }
+        &-col {
+          span {
+            font-size: 24px;
+            font-weight: 500;
+            color: #2FA6DA
+          }
+          span.mini {
+            font-size: inherit;
+            font-weight: inherit;
+            color: #2FA6DA
+          }
+        }
+      }
     }
     .ci {
       &__main {
@@ -232,11 +364,12 @@ import Graph from '../../components/Graph.vue'
         return {
             SERVER_URL: process.env.serverUrl,
             telegrams: [],
+            nowDate: 0,
             domain: process.env.domain,
             params: [],
             subsLoad: false,
+            allStat: [],
             subsStat: [],
-            subsNow: 0,
             ci: {},
             isNotPrivate: true,
             isLoad: true,
@@ -278,55 +411,72 @@ import Graph from '../../components/Graph.vue'
             });
         },
     },
+    async fetch() {
+      try {
+        const d = new Date();
+        const ddate = d.getDate();
+        const month = d.getMonth() + 1;
+        const year = d.getFullYear();
+
+        this.nowDate = ddate + '.' + month + '.' + year;
+        this.nowDate = '19.9.2022';
+
+        
+        const channelData = await fetch(`${this.SERVER_URL}/api/telegrams/${this.id}?populate=*`, {
+            method: "GET",
+            headers: this.headers,
+        }).then(this.checkStatus)
+            .then(this.parseJSON);
+
+        this.params = channelData.data.attributes;
+        this.allStat = this.params.default_stat[this.nowDate];
+
+        if (this.params.tag !== 'приватный') {
+          for (const [key, value] of Object.entries(channelData.data.attributes.stat_subs)) {
+            this.subsStat.push({x: key , y: value});
+          }
+          for (const [key, value] of Object.entries(channelData.data.attributes.stat_ci)) {
+            this.ci[key] = value;
+          }
+          this.subsLoad = true;
+        } else {
+          this.isNotPrivate = false;
+        }
+        
+      } catch (error) {
+        this.error = error;
+      }
+    },
     async mounted() {
-        try {
-            const responseChannels = await fetch(`${this.SERVER_URL}/api/telegrams`, {
-                method: "GET",
-                headers: this.headers,
-            }).then(this.checkStatus)
-                .then(this.parseJSON), channelData = await fetch(`${this.SERVER_URL}/api/telegrams/${this.id}?populate=*`, {
-                method: "GET",
-                headers: this.headers,
-            }).then(this.checkStatus)
-                .then(this.parseJSON);
-            this.params = channelData.data.attributes;
-            if (this.params.tag !== 'приватный') {
-              for (const [key, value] of Object.entries(channelData.data.attributes.stat_subs)) {
-                this.subsStat.push({x: key , y: value});
+      try {
+        const responseChannels = await fetch(`${this.SERVER_URL}/api/telegrams`, {
+          method: "GET",
+          headers: this.headers,
+        }).then(this.checkStatus)
+            .then(this.parseJSON);
+        for (let i = 1; i <= responseChannels.meta.pagination.pageCount; i++) {
+          const channels = await fetch(`${this.SERVER_URL}/api/telegrams?pagination[page]=${i}`, {
+              method: "GET",
+              headers: this.headers,
+          }).then(this.checkStatus)
+              .then(this.parseJSON);
+          const telegrams = channels.data.filter(i => i.attributes.category == this.params.category);
+          telegrams.forEach(item => {
+              if (this.telegrams.length < 6) {
+                  this.telegrams.push(item);
               }
-              for (const [key, value] of Object.entries(channelData.data.attributes.stat_ci)) {
-                this.ci[key] = value;
-              }
-              this.subsLoad = true;
-            } else {
-              this.isNotPrivate = false;
-            }
-            this.subsNow = this.subsStat[Object.keys(this.subsStat)[Object.keys(this.subsStat).length - 1]]['y']; 
-            console.log(this.subsNow)
-            for (let i = 1; i <= responseChannels.meta.pagination.pageCount; i++) {
-                const channels = await fetch(`${this.SERVER_URL}/api/telegrams?pagination[page]=${i}`, {
-                    method: "GET",
-                    headers: this.headers,
-                }).then(this.checkStatus)
-                    .then(this.parseJSON);
-                const telegrams = channels.data.filter(i => i.attributes.category == this.params.category);
-                telegrams.forEach(item => {
-                    if (this.telegrams.length < 6) {
-                        this.telegrams.push(item);
-                    }
-                });
-                if (this.telegrams.length >= 1) {
-                    this.isLoad = false;
-                }
-                if (i === responseChannels.meta.pagination.pageCount && this.telegrams.length === 0) {
-                    this.error = "К сожалению, ничего не найдено :(";
-                    this.isLoad = false;
-                }
-            }
-        }
-        catch (error) {
-            this.error = error;
-        }
+          });
+          if (this.telegrams.length >= 1) {
+              this.isLoad = false;
+          }
+          if (i === responseChannels.meta.pagination.pageCount && this.telegrams.length === 0) {
+              this.error = "К сожалению, ничего не найдено :(";
+              this.isLoad = false;
+          }
+      }
+      } catch (e) {
+        this.error = e;
+      }
     },
     components: { Graph }
 }
